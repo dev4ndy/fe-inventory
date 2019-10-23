@@ -20,7 +20,6 @@ export class MessageServer implements HttpInterceptor {
         return next.handle(req).pipe(
             tap(
                 (event: any) => {
-                    console.log(event);
                     if (event.hasOwnProperty('body')) {
                         if (event.body.hasOwnProperty('message')) {
                             this.snackBar.open(event.body.message, 'Aceptar', Util.getCfgSnackBar('success'));
@@ -30,13 +29,10 @@ export class MessageServer implements HttpInterceptor {
                     }
                 },
                 (err: any) => {
-                    console.log(err);
                     switch (err.status) {
                         case 500:
                             this.snackBar.open(err.error.message, 'Aceptar', Util.getCfgSnackBar('error'));
                             break;
-                        default:
-                            console.error(err);
                     }
                 }
             ));

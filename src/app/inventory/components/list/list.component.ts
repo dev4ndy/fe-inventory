@@ -23,7 +23,6 @@ export class ListComponent implements OnInit {
   }
 
   openTransferDialog(item: Item) {
-    console.log(item);
     this.dialog.open(TransferComponent, {
       data: { item, cellar: this.cellar } as IDialogTransfer
     }).afterClosed().subscribe(response => this.transfer.emit(response));

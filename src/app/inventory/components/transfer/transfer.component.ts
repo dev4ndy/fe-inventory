@@ -31,7 +31,6 @@ export class TransferComponent implements OnInit {
     public dialogRef: MatDialogRef<TransferComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IDialogTransfer
   ) {
-    console.log(data);
     this.item = data.item;
     this.cellarOrigin = data.cellar;
     this.setValidationMessage();
