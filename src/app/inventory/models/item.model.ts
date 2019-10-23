@@ -19,7 +19,7 @@ export class Item {
         }
 
         if (data.hasOwnProperty('description') && data.name) {
-            this.description = data.name;
+            this.description = data.description;
         }
 
         if (data.hasOwnProperty('Inventory') && data.Inventory) {
