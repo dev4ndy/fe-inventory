@@ -1,0 +1,45 @@
+<form [formGroup]="transfer" novalidate>
+    <h1 mat-dialog-title>Transfer inventory</h1>
+    <div mat-dialog-content>
+        <div fxLayout="column" fxLayoutAlign="space-around stretch">
+            <div>
+                <div fxLayout="row wrap" fxLayoutAlign="space-around center">
+                    <input fxFlex="0" type="hidden" formControlName="itemId">
+                    <input fxFlex="0" type="hidden" formControlName="cellarOriginId">
+                    <p fxFlex="48">Transfer the <strong>{{item.name}}</strong> item from warehouse
+                        <strong>{{cellarOrigin.name}}</strong> to the warehouse </p>
+                    <mat-form-field fxFlex="48" appearance="outline">
+                        <mat-label>select a warehouse</mat-label>
+                        <mat-select formControlName="cellarDestinyId">
+                            <mat-option *ngFor="let cellar of cellarsDestiny" [value]="cellar.id">
+                                {{cellar.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngFor="let validation of validationMesssages.cellarDestinyId">
+                            <mat-error
+                                *ngIf="transfer.get('cellarDestinyId').hasError(validation.type) && (transfer.get('cellarDestinyId').dirty || transfer.get('cellarDestinyId').touched)">
+                                {{validation.message}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field fxFlex="98" appearance="outline">
+                        <mat-label>Units</mat-label>
+                        <input matInput type="number" min="1" [max]="item?.quantity" placeholder="amount to transfer"
+                            formControlName="units">
+                        <mat-error *ngFor="let validation of validationMesssages.units">
+                            <mat-error
+                                *ngIf="transfer.get('units').hasError(validation.type) && (transfer.get('units').dirty || transfer.get('units').touched)">
+                                {{validation.message}}
+                            </mat-error>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button color="primary" [disabled]="transfer.invalid" (click)="submit()">Transfer</button>
+    </div>
+</form>

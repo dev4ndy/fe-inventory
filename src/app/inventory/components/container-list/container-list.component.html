@@ -1,0 +1,18 @@
+<div fxLayout="column" fxLayoutAlign="space-between stretch">
+    <div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="20px">
+            <mat-form-field fxFlex="100" appearance="outline">
+                <mat-label>select a warehouse</mat-label>
+                <mat-select (selectionChange)="changeCellar($event)">
+                    <mat-option *ngFor="let cellar of cellars" [value]="cellar">
+                        {{cellar.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <h4 *ngIf="currentCellar">Showing inventory of {{currentCellar.name}}</h4>
+    <app-list *ngIf="currentCellar" [items]="items" [cellar]="currentCellar" (transfer)="refresh($event)">
+
+    </app-list>
+</div>
